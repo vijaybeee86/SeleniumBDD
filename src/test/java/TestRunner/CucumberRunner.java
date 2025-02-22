@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 
 @CucumberOptions(features = "src/test/resources/features/",
-            glue = "src/test/java/stepdefinition", plugin = {}, dryRun = false)
+            glue = {"stepdefinition"}, plugin = {}, dryRun = false)
 public class CucumberRunner extends AbstractTestNGCucumberTests {
 
     @Override

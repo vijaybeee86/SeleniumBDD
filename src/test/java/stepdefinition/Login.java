@@ -9,10 +9,10 @@ public class Login {
 
     LoginPage login = new LoginPage();
 
-//    public Login()
-//    {
-//
-//    }
+    public Login()
+    {
+
+    }
     @Given("^user launch the browser successfully$")
     public void userLaunchTheBrowserSuccessfully() {
         try {
