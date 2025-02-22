@@ -7,7 +7,7 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 
-@CucumberOptions(features = "src/main/resources/features/",
+@CucumberOptions(features = "src/test/resources/features/",
             glue = {"stepdefinition"}, plugin = {}, dryRun = false)
 public class CucumberRunner extends AbstractTestNGCucumberTests {
 
@@ -27,9 +27,6 @@ public class CucumberRunner extends AbstractTestNGCucumberTests {
     @AfterSuite
     public void tearDown()
     {
-        if(DriverInstance.getInstance()!= null)
-        {
-            DriverInstance.getInstance().quit();
-        }
+        DriverInstance.quitDriver();
     }
 }
