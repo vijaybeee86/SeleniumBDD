@@ -1,0 +1,83 @@
+name: Run Test Automation Suite
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:  # Allows manual trigger with inputs
+    inputs:
+      environment:
+        description: "Select Environment (local/staging/production)"
+        required: true
+        default: "local"
+        type: choice
+        options:
+          - local
+          - staging
+          - production
+      execution_mode:
+        description: "Run tests on (local/grid)"
+        required: true
+        default: "local"
+        type: choice
+        options:
+          - local
+          - grid
+      test_tags:
+        description: "Enter Cucumber tags (e.g., @smoke,@regression)"
+        required: false
+        default: "@valid"
+
+jobs:
+  test-execution:
+    runs-on: ubuntu-latest  # Change to windows-latest/macOS-latest if required
+
+    strategy:
+      matrix:
+        java: [11, 17]  # Define multiple Java versions if needed
+        browser: [chrome, firefox]  # Run tests on different browsers
+      fail-fast: false  # Prevents all jobs from stopping if one fails
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"  # Use Adoptium Temurin JDK
+          java-version: ${{ matrix.java }}
+          cache: "maven"  # Caches dependencies for faster execution
+
+      - name: Install Dependencies
+        run: mvn clean install -DskipTests
+
+      - name: Start Selenium Grid (if execution mode is 'grid')
+        if: ${{ github.event.inputs.execution_mode == 'grid' }}
+        run: |
+          docker-compose -f selenium-grid.yml up -d
+          sleep 10  # Wait for Grid to initialize
+
+      - name: Run Tests
+        run: |
+          mvn test \
+          -Denv=${{ github.event.inputs.environment }} \
+          -Dexecution.mode=${{ github.event.inputs.execution_mode }} \
+          -Dcucumber.filter.tags="${{ github.event.inputs.test_tags }}" \
+          -Dbrowser=${{ matrix.browser }}
+
+      - name: Upload Test Reports (Allure)
+        if: always()  # Upload reports even if tests fail
+        uses: actions/upload-artifact@v3
+        with:
+          name: Allure-Reports
+          path: target/allure-results/
+
+      - name: Stop Selenium Grid (if running)
+        if: ${{ github.event.inputs.execution_mode == 'grid' }}
+        run: docker-compose -f selenium-grid.yml down
