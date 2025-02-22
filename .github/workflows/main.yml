@@ -39,7 +39,7 @@ jobs:
 
     strategy:
       matrix:
-        java: [11, 17]  # Define multiple Java versions if needed
+        java: [17]  # Define multiple Java versions if needed
         browser: [chrome, firefox]  # Run tests on different browsers
       fail-fast: false  # Prevents all jobs from stopping if one fails
 
