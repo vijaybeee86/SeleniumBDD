@@ -8,6 +8,11 @@ import pages.LoginPage;
 public class Login {
 
     LoginPage login = new LoginPage();
+
+    public Login()
+    {
+
+    }
     @Given("^user launch the browser successfully$")
     public void userLaunchTheBrowserSuccessfully() {
         try {
