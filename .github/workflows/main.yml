@@ -85,10 +85,10 @@ jobs:
 
       - name: Run Tests
         run: |
-          mvn test -Dsurefire.suiteXmlFiles=src/test/resources/TestNGRunner/Regression.xml \
-          -Denv=${{ github.event.inputs.environment }} \
-          -Dexecution.mode=${{ github.event.inputs.execution_mode }} \
-          -Dcucumber.filter.tags="${{ github.event.inputs.test_tags }}" \
+          mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testrunner/Regression.xml
+          -Denv=${{ github.event.inputs.environment }}
+          -Dexecution.mode=${{ github.event.inputs.execution_mode }}
+          -Dcucumber.filter.tags="${{ github.event.inputs.test_tags }}"
           -Dbrowser=${{ matrix.browser }}
 
       - name: Upload Test Reports (Allure + Cucumber + Surefire)

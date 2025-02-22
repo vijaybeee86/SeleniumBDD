@@ -35,7 +35,7 @@
                 <version>3.2.5</version>
                 <configuration>
                     <includes>
-                        <include>TestRunner/*.java</include> <!-- FIX: Ensure test runner is included -->
+                        <include>runner/*.java</include> <!-- FIX: Ensure test runner is included -->
                     </includes>
                     <systemPropertyVariables>
                         <cucumber.filter.tags>${cucumber.filter.tags}</cucumber.filter.tags>
@@ -88,6 +88,13 @@
             <version>7.21.0</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>5.13.0</version>  <!-- Use the latest stable version -->
+        </dependency>
+
 
     </dependencies>
 

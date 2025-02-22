@@ -3,8 +3,9 @@
 <suite name="BDD Test Suite" >
     <test  name="Cucumber with TestNG Test">
         <parameter name="cucumber.filter.tags" value="@valid"/>
+        <parameter name="cucumber.features" value="src/test/resources/features"/>
         <classes>
-            <class name="TestRunner.CucumberRunner"/>
+            <class name="runner.CucumberRunner"/>
         </classes>
     </test> <!-- Test -->
 </suite> <!-- Suite -->

@@ -1,4 +1,4 @@
-package TestRunner;
+package runner;
 
 import DriverFactory.DriverInstance;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
