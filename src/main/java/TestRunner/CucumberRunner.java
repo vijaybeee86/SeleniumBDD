@@ -7,8 +7,8 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 
-@CucumberOptions(features = "/Users/samkrithik/Documents/workspace/BDDFW/SeleniumBDD/src/main/resources/features/",
-            glue = "stepdefinition", plugin = {}, dryRun = false)
+@CucumberOptions(features = "src/test/resources/features",
+            glue = {"stepdefinition"}, plugin = {}, dryRun = false)
 public class CucumberRunner extends AbstractTestNGCucumberTests {
 
     @Override
