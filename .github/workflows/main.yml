@@ -65,7 +65,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          mvn test -Dsurefire.suiteXmlFiles=Regression.xml \
+          mvn test -Dsurefire.suiteXmlFiles=TestNGRunner/Regression.xml \
           -Denv=${{ github.event.inputs.environment }} \
           -Dexecution.mode=${{ github.event.inputs.execution_mode }} \
           -Dcucumber.filter.tags="${{ github.event.inputs.test_tags }}" \
